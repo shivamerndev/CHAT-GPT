@@ -1,10 +1,8 @@
 import { Router } from 'express'
+import { googleAuth } from '../controllers/auth.controller.js'
 
 const router = Router()
 
-router.get('/login', (req, res) => {
-    // Handle login logic here
-    res.send('Login successful')
-})
+router.post("/google", googleAuth)
 
 export default router
