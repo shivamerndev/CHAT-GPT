@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const ConversationSchema = new Schema({
+const ChatSchema = new Schema({
 
     title:{
         type: String,
@@ -10,8 +10,12 @@ const ConversationSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    isDeleted:{
+        type:Boolean,
+        default:false
     }
 
 }, { timestamps: true });
 
-export default model('Conversation', ConversationSchema);
+export default model('Chat', ChatSchema);
