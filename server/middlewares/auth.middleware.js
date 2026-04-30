@@ -2,7 +2,7 @@ import { verifyToken } from "../utils/token.utils.js"
 
 const userAuth = (req, res, next) => {
 
-    const token = req.cookie
+    const token = req.cookies
     console.log(token)
 
     if (token) {
@@ -11,5 +11,6 @@ const userAuth = (req, res, next) => {
     const decoded = verifyToken(token)
 
     console.log(decoded)
-
 }
+
+export default userAuth;
