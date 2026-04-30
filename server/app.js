@@ -10,5 +10,6 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", (await import("./routes/auth.route.js")).default);
+app.use("/api/chats",(await import("./routes/chat.route.js")).default)
 
 export default app;

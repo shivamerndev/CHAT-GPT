@@ -24,7 +24,7 @@ export const googleAuth = handleError(async (req, res) => {
 
         let token = generateToken({ id: isExist._id, fullname })
         res.cookie("token", token)
-        return res.status(200).json({ message: "LoggedIn Successfully." })
+        return res.status(200).json({ message: "Logged In Successfully." })
     }
 
     const response = await userDao.createUser({ fullname, email, picture })
@@ -32,4 +32,11 @@ export const googleAuth = handleError(async (req, res) => {
 
     res.cookie("token", token)
     res.status(201).json({ message: "User Registered Successfully.", success: true })
+})
+
+
+export const getProfile = handleError(async (req, res) => {
+
+    const user = req.user
+    console.log(user)
 })

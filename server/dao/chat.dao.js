@@ -1,0 +1,2 @@
+import chatModel from "../models/chat.model.js"
+
