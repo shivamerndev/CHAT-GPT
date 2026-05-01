@@ -1,6 +1,11 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const SideNav = () => {
+
+    const user = useSelector((state) => state.auth.user);
+
     const recentChats = ['Greeting', 'Project ideas', 'React help', 'Quick notes']
 
     return (
@@ -23,6 +28,10 @@ const SideNav = () => {
                         </li>
                     ))}
                 </ul>
+            </div>
+
+            <div className=' flex items-center gap-2 absolute bottom-6 left-4'>
+                <img className='w-8 h-8 object-cover' src={user?.picture} alt="" /> <span>{user?.fullname}</span>
             </div>
         </aside>
     )

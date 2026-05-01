@@ -1,19 +1,25 @@
-import { googleAuthService  , profileService } from "../services/auth.service"
+import { useDispatch } from "react-redux"
+import { googleAuthService, profileService } from "../services/auth.service"
+import { setUser } from "../store/features/auth.slice.js"
 
 const useAuth = () => {
+
+    const dispatch = useDispatch()
 
     const googleAuth = async (credentials) => {
 
         let res = await googleAuthService(credentials)
-        console.log(res.data)
+        if (res.status === 200) {
+            getProfile()
+        }
     }
 
     const getProfile = async () => {
         let profile = await profileService()
-        console.log(profile.data)
+        dispatch(setUser(profile.data.user))
     }
 
-    return { googleAuth }
+    return { googleAuth, getProfile }
 }
 
 export default useAuth
