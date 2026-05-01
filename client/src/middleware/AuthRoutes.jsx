@@ -1,14 +1,18 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import { useSelector } from 'react-redux';
 
 const AuthRoutes = ({ children }) => {
-    
-    const { isAuthenticated } = useAuth();
 
-    if (!isAuthenticated) {
+    const { loading, user } = useSelector((state) => state.auth);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!user) {
         return <Navigate to="/login" replace />;
     }
+
     return children;
 };
 
