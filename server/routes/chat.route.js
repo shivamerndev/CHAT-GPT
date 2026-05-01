@@ -8,7 +8,7 @@ const chatRouter = Router();
  * @routes POST /api/chats
  * @argument req.body = {content:string,chatId:string?}
  */
-chatRouter.post("/", handleMessage);
+chatRouter.post("/",userAuth, handleMessage);
 
 
 export default chatRouter;
