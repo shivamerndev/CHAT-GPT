@@ -1,8 +1,10 @@
-import Login from '../pages/Login';
+import { lazy } from "react";
+
+const Home = lazy(() => import("../pages/Home"));
+const Login = lazy(() => import("../pages/Login"));
 import { createBrowserRouter } from 'react-router-dom';
 import AuthRoutes from '../middleware/AuthRoutes';
 import App from './App';
-import Home from '../pages/Home';
 
 const AllRoutes = () => {
 
