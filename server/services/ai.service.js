@@ -2,42 +2,25 @@ import { ChatMistralAI } from "@langchain/mistralai";
 import { createAgent, toolStrategy } from "langchain"
 import z from "zod";
 
-const model = new ChatMistralAI({
-    model: "mistral-medium-latest",
-});
+const model = new ChatMistralAI({ model: "mistral-medium-latest" });
 
-const agent = createAgent({
+const agent = createAgent({ model, tools: [] })
+
+const titleAgent = createAgent({
     model,
     tools: [],
+    responseFormat: toolStrategy(z.object({
+        chatTitle: z.string().describe("A concise title for the given message")
+    }))
 })
 
-export async function getAIResponse({ content }) {
-    
-    const stream = await agent.stream({ messages: [{ role: "user", content }] }, { streamMode: "messages" })
+const getAIResponse = async (userInput) => await agent.stream({ messages: [{ role: "user", content: userInput }] }, { streamMode: "messages" })
 
-    return stream;
-}
+const getTitle = async (userInput) => await titleAgent.invoke({
+    messages: [{
+        role: "user", 
+        content: `Generate a concise title for the following message: ${userInput}`
+    }]
+})
 
-export async function getTitle({ message }) {
-
-    const titleAgent = createAgent({
-        model,
-        tools: [],
-        responseFormat: toolStrategy(z.object({
-            chatTitle: z.string().describe("A concise title for the given message")
-        }))
-    })
-
-    const response = await titleAgent.invoke({
-        messages: [
-            {
-                role: "user",
-                content: `Generate a concise title for the following message: ${message}`
-            }
-        ],
-    })
-
-    console.log(response.structuredResponse)
-
-    return response.structuredResponse
-}
+export { getAIResponse, getTitle }
